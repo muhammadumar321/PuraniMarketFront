@@ -3,5 +3,25 @@
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 .mt-3{
+    display: inline-block;
     margin-top: 10px;
+}
+
+.search{
+    margin-left: 20px;
+    outline: none;
+    padding-left: 10px;
+    width: 200px;
+    height: 35px;
+    border-color: 2px #002f34;
+    border-radius: 4px 0px 0px 4px;
+}
+
+.search-btn{
+    height: 35px;
+    background-color:  #002f34;
+    color: #fff;
+    border-radius: 0px 4px 4px 0px;
+    outline: none;
+    border: none;
 }

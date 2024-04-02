@@ -1,16 +1,37 @@
 import header from './Header.css'
-import { Link } from 'react-router-dom'
+import { createRoot } from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import Home from './Home';
 
 function Header() {
+
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+
+        localStorage.removeItem('token');
+        navigate('/login');
+    }
 
     return (
         <div className="header">
             <Link to="/">Home</Link>
 
-            <span className='mt-3'> Sell and Purchase Only</span>
+            <input type='text' className='search'></input>
+            <button className='search-btn'>Search</button>
 
-            <Link to="/login">Login</Link>
+            <span className='mt-3'> Sell and Purchase Only</span>
+            {!localStorage.getItem('token') ?
+                <Link to="/login">Login</Link> :
+                <button onClick={handleLogout}>LOGOUT</button>
+                }
+
         </div>
     )
 

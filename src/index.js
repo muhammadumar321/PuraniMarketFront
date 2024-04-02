@@ -11,6 +11,7 @@ import {
 import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import AddProduct from './components/AddProduct';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   path: "/signup",
   element: (<Signup/>),
   },
+  {
+    path:"/add-product",
+    element:(<AddProduct/>),
+  }
 ]);
 
 createRoot(document.getElementById("root")).render(
