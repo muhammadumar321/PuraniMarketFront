@@ -7,7 +7,7 @@ import Categories from "./categories";
 import { FaHeart } from react - icons
 import Home from './Home.css'
 
-function Home() {
+function LikedProducts() {
 
     const navigate = useNavigate();
     const [products, setProducts] = useState([]);
@@ -16,8 +16,9 @@ function Home() {
 
     useEffect(() => {
 
-        const url = "http://localhost:3000/get-products";
-        axios.get(url).then((res) => {
+        const url = "http://localhost:3000/liked-products";
+        let data = {userId: localStorage.getItem('userId')}
+        axios.post(url,data).then((res) => {
             if (res.data.products) {
                 setProducts(res.data.products);
             }
@@ -86,12 +87,12 @@ function Home() {
 
                     return (
                         <div key={item._id} className="card m-3">
-                            <img width='250px' height='150px' src={'http://localhost:3000/uploads/' + item.pImage} />
+                            <img width='270px' height='200px' src={'http://localhost:3000/uploads/' + item.pImage} />
                             <div onClick={() => { handleLike(item._id) }} className="like-icons-con">
                                 <FaHeart className='like-icons' />
                             </div>
-                            <h3 className="m-2 price-text"> Rs. {item.price} /- </h3>
                             <p className="m-2"> {item.pname} | {item.category}</p>
+                            <h3 className="m-2 text-danger">{item.price}</h3>
                             <p className="m-2 text-success">{item.setPDecs}</p>
                         </div>
                     )
@@ -123,4 +124,4 @@ function Home() {
 
 }
 
-export default Home;
+export default LikedProducts;
