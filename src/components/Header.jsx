@@ -8,6 +8,7 @@ import {
     useNavigate,
 } from "react-router-dom";
 import Home from './Home';
+import { FaSearch } from 'react-icons/fa'
 
 function Header(props) {
 
@@ -30,7 +31,9 @@ function Header(props) {
                         props.handleSearch && props.handleSearch(e.target.value)}></input>
 
                 <button className='search-btn'
-                    onClick={() => props.handleSearchClick && props.handleSearchClick()}>Search</button>
+                    onClick={() => props.handleSearchClick && props.handleSearchClick()}>
+                    <FaSearch />
+                </button>
 
             </div>
 
@@ -38,8 +41,8 @@ function Header(props) {
                 <button className="logout-btn">Add Product</button>
             </Link>}
 
-            {!!localStorage.getItem('token') && <Link to="/add-product">
-                <button className="liked-products">Liked Product</button>
+            {!!localStorage.getItem('token') && <Link to="/liked-product">
+                <button className="logout-btn">Liked Product</button>
             </Link>}
 
 

@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, React } from "react";
 import Header from "./Header";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
-import { React, useState } from "react";
-import Categories from "./categories";
-import { FaHeart } from react - icons
+import { FaHeart } from 'react-icons/fa'
 import Home from './Home.css'
+import AllCategories from "./AllCategories";
 
 function LikedProducts() {
 
@@ -16,9 +15,9 @@ function LikedProducts() {
 
     useEffect(() => {
 
-        const url = "http://localhost:3000/liked-products";
-        let data = {userId: localStorage.getItem('userId')}
-        axios.post(url,data).then((res) => {
+        const url = "http://localhost:4000/liked-products";
+        let data = { userId: localStorage.getItem('userId') }
+        axios.post(url, data).then((res) => {
             if (res.data.products) {
                 setProducts(res.data.products);
             }
@@ -60,9 +59,9 @@ function LikedProducts() {
     const handleLike = (productId) => {
         let userId = localStorage.getItem('userId');
 
-        const url = "http://localhost:3000/like-product";
-        const data = {userId, productId}
-        axios.post(url,data).then((res) => {
+        const url = "http://localhost:4000/like-product";
+        const data = { userId, productId }
+        axios.post(url, data).then((res) => {
             if (res.data.message) {
                 alert(res.data.message);
             }
@@ -78,7 +77,7 @@ function LikedProducts() {
 
             <Header search={search} handleSearch={setHandleSearch} handleSearchClick={setHandleSearchClick} />
 
-            <Categories handleCategory={setHandleCategory} />
+            <AllCategories handleCategory={setHandleCategory} />
 
             <h5>Search Results:</h5>
             <div className="d-flex justify-content-center flex-wrap">
@@ -87,11 +86,11 @@ function LikedProducts() {
 
                     return (
                         <div key={item._id} className="card m-3">
-                            <img width='270px' height='200px' src={'http://localhost:3000/uploads/' + item.pImage} />
-                            <div onClick={() => { handleLike(item._id) }} className="like-icons-con">
+                            <img width='270px' height='200px' src={'http://localhost:4000/uploads/' + item.pImage} />
+                            {localStorage.getItem('token') && <div onClick={() => { handleLike(item._id) }} className="like-icons-con">
                                 <FaHeart className='like-icons' />
-                            </div>
-                            <p className="m-2"> {item.pname} | {item.category}</p>
+                            </div>}
+                            <p className="m-2"> {item.pName} | {item.category}</p>
                             <h3 className="m-2 text-danger">{item.price}</h3>
                             <p className="m-2 text-success">{item.setPDecs}</p>
                         </div>
@@ -106,11 +105,11 @@ function LikedProducts() {
 
                     return (
                         <div key={item._id} className="card m-3">
-                            <img width='270px' height='200px' src={'http://localhost:3000/uploads/' + item.pImage} />
-                            <div onClick={() => { handleLike(item._id) }} className="like-icons-con">
+                            <img width='270px' height='200px' src={'http://localhost:4000/uploads/' + item.pImage} />
+                            {localStorage.getItem('token') && <div onClick={() => { handleLike(item._id) }} className="like-icons-con">
                                 <FaHeart className='like-icons' />
-                            </div>
-                            <p className="m-2"> {item.pname} | {item.category}</p>
+                            </div>}
+                            <p className="m-2"> {item.pName} | {item.category}</p>
                             <h3 className="m-2 text-danger">{item.price}</h3>
                             <p className="m-2 text-success">{item.setPDecs}</p>
                         </div>

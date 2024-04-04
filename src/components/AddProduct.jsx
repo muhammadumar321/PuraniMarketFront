@@ -16,14 +16,14 @@ function AddProduct() {
 
     useEffect(() => {
 
-        if (localStorage.getItem('token')) {
+        if (!localStorage.getItem('token')) {
             navigate('/login');
         }
     })
 
     const handleAddProductAPi = () => {
 
-        const url = "http://localhost:3000/add-product";
+        const url = "http://localhost:4000/add-product";
         const formData = new FormData();
 
         formData.append('pName', pName);
@@ -66,8 +66,7 @@ function AddProduct() {
                     <option>Home</option>
                 </select>
                 <label>Product Image:</label>
-                <input class="form-control" value={file} onChange={(e) => { setImage(e.target.files) }}></input>
-
+                <input type="file" className="form-control" onChange={(e) => { setImage(e.target.files[0]);console.log('img '+e.target.files[0]); }}></input>
                 <button className="btn btn-primary mt-3" onClick={handleAddProductAPi}>SUBMIT</button>
             </div>
         </div>

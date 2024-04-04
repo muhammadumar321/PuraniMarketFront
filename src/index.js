@@ -13,6 +13,8 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import AddProduct from './components/AddProduct';
 import LikedProducts from './components/LikedProducts';
+import ProductDetail from './components/ProductDetail';
+import CategoryPage from './components/CategoryPage';
 
 const router = createBrowserRouter([
   {
@@ -34,7 +36,16 @@ const router = createBrowserRouter([
   {
     path:"/liked-product",
     element:(<LikedProducts/>),
+  },
+  {
+    path:"/product/:pId",
+    element:(<ProductDetail/>)
+  },
+  {
+    path:"/category/:catName",
+    element:(<CategoryPage/>)
   }
+  
 ]);
 
 createRoot(document.getElementById("root")).render(

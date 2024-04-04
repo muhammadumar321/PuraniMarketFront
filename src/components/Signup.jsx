@@ -9,7 +9,7 @@ function Signup() {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
-    const url = "http://localhost:3000/signup";
+    const url = "http://localhost:4000/signup";
     const data = { userName, password };
 
     const handleSignUpAPi = () => {

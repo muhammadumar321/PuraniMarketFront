@@ -29,3 +29,17 @@ like-icon.hover {
 .price-text{
   color: #002f43;
 }
+
+.clear-btn {
+  height: 24px;
+  background-color: #002f34;
+  color: #fff;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  width: 80px;
+  padding: 0px 15px;
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 12px;
+}

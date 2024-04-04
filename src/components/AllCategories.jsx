@@ -1,6 +1,6 @@
 import header from './Header.css'
-import { createRoot } from "react-dom/client";
 import {
+    createRoot,
     createBrowserRouter,
     RouterProvider,
     Route,
@@ -8,9 +8,14 @@ import {
     useNavigate,
 } from "react-router-dom";
 import Home from './Home';
+
 import CategoriesList from './CategoriesList'
 
-function Categories(props) {
+
+function AllCategories(props) {
+
+
+    const navigate = useNavigate();
 
     return (
         <div className='cat-container'>
@@ -20,9 +25,9 @@ function Categories(props) {
                 {CategoriesList && CategoriesList.length > 0 && CategoriesList.map(
                     (item, index) => {
                         return (
-                            <span onClick={() => {
-                                 props.handleCategory && props.handleCategory(item) }} 
-                                 key='index' className='categories'>{item}</span>
+                            <span onClick={() =>
+                                navigate('/category/'+item)}
+                                key='index' className='categories'>{item}</span>
                         )
                     }
                 )}
@@ -33,4 +38,4 @@ function Categories(props) {
 
 }
 
-export default Categories;
+export default AllCategories;

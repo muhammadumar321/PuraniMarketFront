@@ -1,15 +1,17 @@
-import { useEffect } from "react";
 import Header from "./Header";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,useParams } from 'react-router-dom';
 import axios from "axios";
-import { React, useState } from "react";
-import Categories from "./AllCategories";
+import { useEffect, React, useState,  } from "react";
+import Categories from "./AllCategories.jsx";
 import { FaHeart } from 'react-icons/fa'
-import HomeCSS from './Home.css'
+import Home from './Home.css'
 
-function Home() {
+function CategoryPage() {
 
     const navigate = useNavigate();
+
+    const param = useParams();
+
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [search, setSearch] = useState();
@@ -17,7 +19,7 @@ function Home() {
 
     useEffect(() => {
 
-        const url = "http://localhost:4000/get-products";
+        const url = 'http://localhost:4000/get-products?catName=' + param.catName;
         axios.get(url).then((res) => {
             if (res.data.products) {
                 setProducts(res.data.products);
@@ -27,7 +29,7 @@ function Home() {
             .catch((err) => {
                 alert(err.message);
             })
-    }, [])
+    }, [param])
 
     const setHandleSearch = (value) => {
         setSearch(value);
@@ -94,9 +96,9 @@ function Home() {
             <Header search={search} handleSearch={setHandleSearch} handleSearchClick={setHandleSearchClick} />
 
             <Categories handleCategory={setHandleCategory} />
-            {isSearch && filteredProducts && <h5>Search Results : 
-                <button className="clear-btn" onClick={()=>setIsSearch(false)}> CLEAR </button>
-                </h5>}
+            {isSearch && filteredProducts && <h5>Search Results :
+                <button className="clear-btn" onClick={() => setIsSearch(false)}> CLEAR </button>
+            </h5>}
             {isSearch && filteredProducts && filteredProducts.length == 0 && <h5>No Results Found :</h5>}
 
             {isSearch && <div className="d-flex justify-content-center flex-wrap">
@@ -119,7 +121,7 @@ function Home() {
 
             </div>}
 
-           {!isSearch && <div className="d-flex justify-content-center flex-wrap">
+            {!isSearch && <div className="d-flex justify-content-center flex-wrap">
                 {products && products.length > 0 && products.map((item, index) => {
 
 
@@ -144,4 +146,4 @@ function Home() {
 
 }
 
-export default Home;
+export default CategoryPage;
