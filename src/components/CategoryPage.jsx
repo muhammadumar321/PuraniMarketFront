@@ -36,7 +36,8 @@ function CategoryPage() {
     }
 
     const setHandleSearchClick = () => {
-        const url = "http://localhost:4000/search?search=" + search;
+        const url = "http://localhost:4000/search?search=" + search
+        + '&pLoc=' + localStorage.getItem('userLoc');
         axios.get(url).then((res) => {
             if (res.data.products) {
                 setIsSearch(true);
@@ -46,17 +47,6 @@ function CategoryPage() {
             .catch((err) => {
                 alert(err.message);
             })
-
-
-        // let tempFilteredProducts = products.filter((item) => {
-        //     if (item.pName.toLowerCase.includes(search.toLowerCase) ||
-        //         item.pDecs.toLowerCase.includes(search.toLowerCase) ||
-        //         item.category.toLowerCase.includes(search.toLowerCase)) {
-        //         return item;
-        //     }
-        // })
-
-        //setFilteredProducts(tempFilteredProducts);
     }
 
     const setHandleCategory = (value) => {

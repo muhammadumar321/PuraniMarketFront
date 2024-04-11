@@ -26,9 +26,13 @@ function AddProduct() {
     const handleAddProductAPi = () => {
 
         const url = "http://localhost:4000/add-product";
+        
+        navigator.geolocation.getCurrentPosition((position) => {
+  
         const formData = new FormData();
-
         formData.append('pName', pName);
+        formData.append('pLat', position.coords.latitude);
+        formData.append('pLong', position.coords.longitude);
         formData.append('pDecs', pDecs);
         formData.append('price', price);
         formData.append('category', category);
@@ -47,7 +51,7 @@ function AddProduct() {
             .catch((err) => {
                 alert(err.message);
             })
-
+        })
     }
 
     return (

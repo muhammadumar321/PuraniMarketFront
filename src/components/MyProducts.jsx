@@ -6,7 +6,7 @@ import { FaHeart } from 'react-icons/fa'
 import Home from './Home.css'
 import AllCategories from "./AllCategories";
 
-function LikedProducts() {
+function MyProducts() {
 
     const navigate = useNavigate();
     const [products, setProducts] = useState([]);
@@ -15,7 +15,7 @@ function LikedProducts() {
 
     useEffect(() => {
 
-        const url = "http://localhost:4000/liked-products";
+        const url = "http://localhost:4000/my-products";
         let data = { userId: localStorage.getItem('userId') }
         axios.post(url, data).then((res) => {
             if (res.data.products) {
@@ -126,4 +126,4 @@ function LikedProducts() {
 
 }
 
-export default LikedProducts;
+export default MyProducts;

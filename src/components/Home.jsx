@@ -34,7 +34,8 @@ function Home() {
     }
 
     const setHandleSearchClick = () => {
-        const url = "http://localhost:4000/search?search=" + search;
+        const url = "http://localhost:4000/search?search=" + search
+            + '&pLoc=' + localStorage.getItem('userLoc');
         axios.get(url).then((res) => {
             if (res.data.products) {
                 setIsSearch(true);
@@ -68,14 +69,19 @@ function Home() {
         setFilteredProducts(tempFilteredProducts);
     }
 
-    const handleLike = (productId) => {
+    const handleLike = (productId, e) => {
+        e.stopPropagation();
         let userId = localStorage.getItem('userId');
+        if (!userId) {
+            alert('Please login first');
+            return;
+        }
 
         const url = "http://localhost:4000/like-product";
         const data = { userId, productId }
         axios.post(url, data).then((res) => {
             if (res.data.message) {
-                alert(res.data.message);
+                alert('Liked');
             }
 
         })
@@ -94,9 +100,9 @@ function Home() {
             <Header search={search} handleSearch={setHandleSearch} handleSearchClick={setHandleSearchClick} />
 
             <Categories handleCategory={setHandleCategory} />
-            {isSearch && filteredProducts && <h5>Search Results : 
-                <button className="clear-btn" onClick={()=>setIsSearch(false)}> CLEAR </button>
-                </h5>}
+            {isSearch && filteredProducts && <h5>Search Results :
+                <button className="clear-btn" onClick={() => setIsSearch(false)}> CLEAR </button>
+            </h5>}
             {isSearch && filteredProducts && filteredProducts.length == 0 && <h5>No Results Found :</h5>}
 
             {isSearch && <div className="d-flex justify-content-center flex-wrap">
@@ -107,7 +113,7 @@ function Home() {
                         <div onClick={() => handleProductClick(item._id)}
                             key={item._id} className="card m-3">
                             <img width='250px' height='150px' src={'http://localhost:4000/uploads/' + item.pImage} />
-                            {localStorage.getItem('token') && <div onClick={() => { handleLike(item._id) }} className="like-icons-con">
+                            {localStorage.getItem('token') && <div onClick={(e) => { handleLike(item._id, e) }} className="like-icons-con">
                                 <FaHeart className='like-icons' />
                             </div>}
                             <h3 className="m-2 price-text"> Rs. {item.price} /- </h3>
@@ -119,7 +125,7 @@ function Home() {
 
             </div>}
 
-           {!isSearch && <div className="d-flex justify-content-center flex-wrap">
+            {!isSearch && <div className="d-flex justify-content-center flex-wrap">
                 {products && products.length > 0 && products.map((item, index) => {
 
 
@@ -127,7 +133,7 @@ function Home() {
                         <div onClick={() => handleProductClick(item._id)}
                             key={item._id} className="card m-3">
                             <img width='270px' height='200px' src={'http://localhost:4000/uploads/' + item.pImage} />
-                            {localStorage.getItem('token') && <div onClick={() => { handleLike(item._id) }} className="like-icons-con">
+                            {localStorage.getItem('token') && <div onClick={(e) => { handleLike(item._id, e) }} className="like-icons-con">
                                 <FaHeart className='like-icons' />
                             </div>}
                             <p className="m-2"> {item.pName} | {item.category}</p>
